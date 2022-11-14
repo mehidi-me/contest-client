@@ -7,6 +7,9 @@ const contestJoin = async (data) => {
 const getOneJoin = async (v) => {
   return await client.get(`join/${v.cid}/${v.uid}`);
 };
+const getOneJoin2 = async (v) => {
+  return await client.get(`join/employe/${v.cid}/${v.uid}`);
+};
 
 const getJoinAll = async (id) => {
   return await client.get(`join/${id}`);
@@ -19,4 +22,11 @@ const deleteJoin = async (id) => {
   return await client.delete(`join/${id}`);
 };
 
-export default { contestJoin, getOneJoin, getJoinAll, updateJoin, deleteJoin };
+export default {
+  contestJoin,
+  getOneJoin,
+  getJoinAll,
+  updateJoin,
+  deleteJoin,
+  getOneJoin2,
+};
