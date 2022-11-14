@@ -14,6 +14,9 @@ function ContestDetails() {
 
   const [activeTable, setActiveTable] = useState("pending");
   const [winerDetails, setwinerDetails] = useState(null);
+  const [pendingList, setPendingList] = useState(null);
+  const [perticipentList, setPerticipentList] = useState(null);
+  const [emailList, setEmailList] = useState(null);
 
   const {
     request: joinAllGet,
@@ -106,7 +109,19 @@ function ContestDetails() {
 
     setwinerDetails(JSON.parse(res.data?.contest?.winer_id));
   }, []);
-  console.log(winerDetails);
+
+  useEffect(() => {
+    if (joinAllData) {
+      let perticipents = joinAllData?.joins?.filter(
+        (v) => v.status == "approved"
+      );
+      let pendingper = joinAllData?.joins?.filter((v) => v.status == "pending");
+      setEmailList(joinAllData?.users);
+      setPerticipentList(perticipents);
+      setPendingList(pendingper);
+    }
+  }, [joinAllData]);
+
   return (
     <>
       <Navbar />
@@ -201,6 +216,31 @@ function ContestDetails() {
               ) : null}
               {activeTable == "pending" ? (
                 <div className="table">
+                  <div
+                    style={{
+                      width: "250px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <input
+                      style={{ margin: 0 }}
+                      name="search"
+                      type="search"
+                      placeholder="Search"
+                      onChange={(e) => {
+                        if (!e.target.value)
+                          return setPerticipentList(joinAllData?.joins);
+                        setPerticipentList((v) =>
+                          joinAllData?.joins?.filter((d) =>
+                            Object.values(d).includes(e.target.value)
+                          )
+                        );
+                      }}
+                    />
+                    {/* <button style={{ width: "auto" }}>Search</button> */}
+                  </div>
                   <table id="pending-approval">
                     <tbody>
                       <tr>
@@ -209,7 +249,7 @@ function ContestDetails() {
                         <th>Ticket ID</th>
                         <th>Approval</th>
                       </tr>
-                      {joinAllData?.joins.map((v) => {
+                      {pendingList?.map((v) => {
                         if (v.status == "pending") {
                           return (
                             <tr>
@@ -241,6 +281,31 @@ function ContestDetails() {
                 </div>
               ) : activeTable == "perticipents" ? (
                 <div className="table">
+                  <div
+                    style={{
+                      width: "250px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <input
+                      style={{ margin: 0 }}
+                      name="search"
+                      type="search"
+                      placeholder="Search"
+                      onChange={(e) => {
+                        if (!e.target.value)
+                          return setPerticipentList(joinAllData?.joins);
+                        setPerticipentList((v) =>
+                          joinAllData?.joins?.filter((d) =>
+                            Object.values(d).includes(e.target.value)
+                          )
+                        );
+                      }}
+                    />
+                    {/* <button style={{ width: "auto" }}>Search</button> */}
+                  </div>
                   <table id="approved-list">
                     <tbody>
                       <tr>
@@ -250,7 +315,7 @@ function ContestDetails() {
                         <th>Approval</th>
                         <th>Pirticipent bonus gift</th>
                       </tr>
-                      {joinAllData?.joins.map((v) => {
+                      {perticipentList?.map((v) => {
                         if (v.status == "approved") {
                           return (
                             <tr>
@@ -268,6 +333,31 @@ function ContestDetails() {
                 </div>
               ) : (
                 <div className="table">
+                  <div
+                    style={{
+                      width: "250px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <input
+                      style={{ margin: 0 }}
+                      name="search"
+                      type="search"
+                      placeholder="Search"
+                      onChange={(e) => {
+                        if (!e.target.value)
+                          return setEmailList(joinAllData?.users);
+                        setEmailList((v) =>
+                          joinAllData?.users?.filter((d) =>
+                            Object.values(d).includes(e.target.value)
+                          )
+                        );
+                      }}
+                    />
+                    {/* <button style={{ width: "auto" }}>Search</button> */}
+                  </div>
                   <table id="email-list">
                     <tbody>
                       <tr>
@@ -275,7 +365,7 @@ function ContestDetails() {
                         <th>User ID</th>
                         <th>Email</th>
                       </tr>
-                      {joinAllData?.users?.map((v) => (
+                      {emailList?.map((v) => (
                         <tr>
                           <td>{v.name}</td>
                           <td>
