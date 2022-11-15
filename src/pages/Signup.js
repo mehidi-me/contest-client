@@ -7,21 +7,22 @@ import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 import Icon from "./icon";
 import useAuth from "../hook/useAuth";
+import Loader from "../components/Loader";
 
 const Signup = () => {
-  const { signup } = useAuth();
+  const { signup, googleLogin, loading } = useAuth();
   const clientId =
     "95178071516-tjgbc4t1kt5qasgioblc2f5aglftm2aj.apps.googleusercontent.com";
   // useEffect(() => {
-  //     const initClient = () => {
-  //           gapi.client.init({
-  //           clientId: clientId,
-  //           plugin_name: 'thétiptop',
-  //           scope: ''
-  //         });
-  //      };
-  //      gapi.load('client:auth2', initClient);
-  //  });
+  //   const initClient = () => {
+  //     gapi.client.init({
+  //       clientId: clientId,
+  //       plugin_name: "thétiptop",
+  //       scope: "",
+  //     });
+  //   };
+  //   gapi.load("client:auth2", initClient);
+  // }, []);
 
   const [data, setData] = useState({
     firstname: "",
@@ -41,19 +42,16 @@ const Signup = () => {
 
   const googleSuccess = async (res) => {
     console.log("google success");
-    console.log(res);
+    //  console.log(res);
 
-    const accessToken = res.accessToken;
+    const accessToken = res.tokenId;
     const email = res.profileObj.email;
 
-    axios.post("http://localhost:5000/api/auth/sso", {
-      access_token: accessToken,
-      email: email,
-    });
+    googleLogin({ accessToken, email });
   };
 
   const googleFailure = (error) => {
-    console.log("Google sign in was unsuccessful");
+    setError("Google sign in was unsuccessful");
     console.log(error);
   };
 
@@ -67,6 +65,9 @@ const Signup = () => {
     };
     const res = await signup(regData);
     if (res?.code == 400) setError(res.message);
+
+    try {
+    } catch (error) {}
 
     // try {
     //   const url = "http://localhost:5000/api/auth/signup";
@@ -148,15 +149,15 @@ const Signup = () => {
             <Link to="/login">
               <button className="button">Login</button>
             </Link>
-            {/* <GoogleLogin
+            <GoogleLogin
               clientId={clientId}
               buttonText="Sign in with Google"
               onSuccess={googleSuccess}
               onFailure={googleFailure}
               cookiePolicy={"single_host_origin"}
-              isSignedIn={true}
-            /> */}
-
+              // isSignedIn={true}
+            />
+            {loading && <Loader />}
             {error && <div style={{ color: "red" }}>{error}</div>}
           </div>
         </div>

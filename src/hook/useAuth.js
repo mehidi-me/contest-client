@@ -10,6 +10,34 @@ const useAuth = () => {
     document.location.href = path;
   };
 
+  const googleLogin = async (data) => {
+    setLoading(true);
+    const res = await auth.googleLogin(data);
+    setLoading(false);
+    if (res.status == 400) {
+      return { code: 400, message: res.data?.message };
+    }
+    console.log(res);
+    if (res.status == 200 || res.status == 201) {
+      localStorage.setItem("token", res.data?.tokens.access.token);
+      localStorage.setItem("refreshToken", res.data?.tokens.refresh.token);
+      localStorage.setItem("userInfo", JSON.stringify(res.data?.user));
+
+      toast.success("Sucssefully Login");
+      if (res.data?.user.role == "user") {
+        navigate("/participer");
+      }
+      if (res.data?.user.role == "admin") {
+        navigate("/admin/panel/contest-list");
+      }
+      if (res.data?.user.role == "employe") {
+        navigate("/employe");
+      }
+      //navigate("/participer");
+      //return { code: 200, data: res.data };
+    }
+  };
+
   const signup = async (data) => {
     setLoading(true);
     const res = await auth.signup(data);
@@ -91,7 +119,7 @@ const useAuth = () => {
     navigate("/");
   };
 
-  return { login, logOut, loading, signup };
+  return { login, logOut, loading, signup, googleLogin };
 };
 
 export default useAuth;

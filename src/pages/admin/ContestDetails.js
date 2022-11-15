@@ -7,6 +7,7 @@ import useApi from "../../hook/useApi";
 import Loader from "../../components/Loader";
 import { toast } from "react-toastify";
 import contest from "../../api/contest";
+import { DonutChart } from "react-circle-chart";
 
 function ContestDetails() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ function ContestDetails() {
   const [pendingList, setPendingList] = useState(null);
   const [perticipentList, setPerticipentList] = useState(null);
   const [emailList, setEmailList] = useState(null);
+  const [chartArgs, setchartArgs] = useState([]);
 
   const {
     request: joinAllGet,
@@ -111,6 +113,7 @@ function ContestDetails() {
   }, []);
 
   useEffect(() => {
+    setchartArgs([]);
     if (joinAllData) {
       let perticipents = joinAllData?.joins?.filter(
         (v) => v.status == "approved"
@@ -119,9 +122,42 @@ function ContestDetails() {
       setEmailList(joinAllData?.users);
       setPerticipentList(perticipents);
       setPendingList(pendingper);
+
+      function getOccurrence(array, value) {
+        var count = 0;
+        array.forEach((v) => v === value && count++);
+        return count;
+      }
+      function percentage(partialValue, totalValue) {
+        return (100 * partialValue) / totalValue;
+      }
+
+      const useGivePrizes = [];
+      const allPrizes = [];
+      joinAllData?.joins?.map((v) => {
+        if (v.status == "approved") {
+          useGivePrizes.push(v.prize_id);
+        }
+      });
+      joinAllData?.prizes?.map((v) => allPrizes.push(v.name));
+      allPrizes.map((d) => {
+        // console.log(percentage(getOccurrence(allPrizes, v), allPrizes.length));
+        console.log(getOccurrence(allPrizes, d));
+        setchartArgs((v) => [
+          ...v,
+          {
+            label: d,
+            value: percentage(
+              getOccurrence(useGivePrizes, d),
+              allPrizes.length
+            ),
+          },
+        ]);
+      });
+      //console.log(useGivePrizes, allPrizes);
     }
   }, [joinAllData]);
-
+  //console.log(chartArgs);
   return (
     <>
       <Navbar />
@@ -281,6 +317,32 @@ function ContestDetails() {
                 </div>
               ) : activeTable == "perticipents" ? (
                 <div className="table">
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginBottom: "20px",
+                    }}
+                  >
+                    <DonutChart items={chartArgs} size="sm" />
+                    <ul>
+                      {chartArgs?.map((v) => (
+                        <li style={{ fontSize: "18px", margin: "5px" }}>
+                          {v.label}{" "}
+                          <span
+                            style={{
+                              color: "var(--primary-color)",
+                              fontWeight: "bold",
+                              fontSize: "22px",
+                            }}
+                          >
+                            {v.value}
+                            {"%"}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                   <div
                     style={{
                       width: "250px",
