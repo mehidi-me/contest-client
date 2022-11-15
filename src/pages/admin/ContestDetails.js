@@ -140,17 +140,17 @@ function ContestDetails() {
         }
       });
       joinAllData?.prizes?.map((v) => allPrizes.push(v.name));
+
+      let totalLength = 0;
+      allPrizes.map((v) => (totalLength += getOccurrence(useGivePrizes, v)));
       allPrizes.map((d) => {
         // console.log(percentage(getOccurrence(allPrizes, v), allPrizes.length));
-        console.log(getOccurrence(allPrizes, d));
+        console.log(getOccurrence(useGivePrizes, d));
         setchartArgs((v) => [
           ...v,
           {
             label: d,
-            value: percentage(
-              getOccurrence(useGivePrizes, d),
-              allPrizes.length
-            ),
+            value: percentage(getOccurrence(useGivePrizes, d), totalLength),
           },
         ]);
       });
