@@ -28,6 +28,10 @@ function ContestJoin() {
     for (let i = 0; i < Object.values(data).length; i++) {
       if (!Object.values(data)[i]) return toast.warning(`input is not empty!`);
     }
+    if (data.code.length != 10) {
+      return toast.warning(`Code à 10 chiffres length is 10!`);
+    }
+
     await contestJoin({ ...data, contest_id: id, site_user_id: userInfo.id });
     navigate("/participer");
     //console.log({ ...data, contest_id: id, site_user_id: userInfo.id });
