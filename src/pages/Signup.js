@@ -12,7 +12,7 @@ import Loader from "../components/Loader";
 const Signup = () => {
   const { signup, googleLogin, loading } = useAuth();
   const clientId =
-    "95178071516-tjgbc4t1kt5qasgioblc2f5aglftm2aj.apps.googleusercontent.com";
+    "1092050659820-ft2ujq2jnjncdkklma6fua555rcuc6l4.apps.googleusercontent.com";
   // useEffect(() => {
   //   const initClient = () => {
   //     gapi.client.init({

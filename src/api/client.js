@@ -1,8 +1,8 @@
 import { create } from "apisauce";
 
 const apiClient = create({
-  baseURL: "http://localhost:3005/v1/",
-  //baseURL: "https://contest-backend-app.herokuapp.com/v1/",
+  //baseURL: "http://localhost:3005/v1/",
+  baseURL: "https://contest-backend-app.herokuapp.com/v1/",
 });
 
 apiClient.addAsyncRequestTransform(async (req) => {
