@@ -12,9 +12,9 @@ function ContestJoin() {
   const navigate = useNavigate();
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   const [data, setData] = useState({
-    user_id: "",
+    user_id: userInfo.id,
     code: "",
-    ticket_id: "",
+    ticket_id: "000",
   });
 
   const { request: contestJoin, loading: contestJoinLoading } = useApi(
@@ -47,24 +47,24 @@ function ContestJoin() {
                 Bienvenue <span>{userInfo.name}</span>
               </h1>
               <div>
-                <input
+                {/* <input
                   type="number"
                   name="user_id"
                   onChange={handleChange}
                   placeholder="Identifiant d'utilisateur"
-                />
+                /> */}
                 <input
                   type="number"
                   name="code"
                   onChange={handleChange}
                   placeholder="Code à 10 chiffres"
                 />
-                <input
+                {/* <input
                   type="number"
                   name="ticket_id"
                   onChange={handleChange}
                   placeholder="ID de billets"
-                />
+                /> */}
                 <button type="button" onClick={handleSubmit}>
                   {contestJoinLoading ? <Loader /> : "Vérifier"}
                 </button>

@@ -38,6 +38,7 @@ function CreateContest() {
     start_date: "",
     end_date: "",
     main_prize_id: "",
+    code_list: "",
   });
 
   const [prizeName, setPrizeName] = useState("");
@@ -80,6 +81,7 @@ function CreateContest() {
     } else {
       prizeRequestGet();
     }
+    // prizeRequestGet();
     console.log(activeContest);
 
     //
@@ -105,6 +107,12 @@ function CreateContest() {
                 name="name"
                 onChange={handleChange}
                 placeholder="Contest name"
+              />
+              <input
+                type="text"
+                name="code_list"
+                onChange={handleChange}
+                placeholder="Coupon code quantity"
               />
               <div className="fild">
                 <label htmlFor="start-date">Start date</label>
