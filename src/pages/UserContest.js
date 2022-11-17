@@ -49,7 +49,7 @@ function UserContest() {
         setparticiper(res2.data);
       }
     } else {
-      setHeading("Contest Not Runing");
+      setHeading("Le concours n'est pas en cours");
     }
     // console.log(activeContest);
 

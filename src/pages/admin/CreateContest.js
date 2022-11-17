@@ -97,25 +97,25 @@ function CreateContest() {
               onClick={() => navigate("/admin/panel/contest-list")}
               style={{ width: "56px", padding: "7px" }}
             >
-              Back
+              Retour
             </button>
-            <h1>Create Contest</h1>
+            <h1>Créer un concours</h1>
             <br />
             <div>
               <input
                 type="text"
                 name="name"
                 onChange={handleChange}
-                placeholder="Contest name"
+                placeholder="Nom du concours"
               />
               <input
                 type="text"
                 name="code_list"
                 onChange={handleChange}
-                placeholder="Coupon code quantity"
+                placeholder="Quantité de code promo"
               />
               <div className="fild">
-                <label htmlFor="start-date">Start date</label>
+                <label htmlFor="start-date">Date de début</label>
                 <input
                   id="start-date"
                   name="start_date"
@@ -124,7 +124,7 @@ function CreateContest() {
                 />
               </div>
               <div className="fild">
-                <label htmlFor="end-date">End date</label>
+                <label htmlFor="end-date">Date de fin</label>
                 <input
                   id="end-date"
                   name="end_date"
@@ -133,11 +133,11 @@ function CreateContest() {
                 />
               </div>
               <div className="fild">
-                <label htmlFor="add-prize">Add prizes</label>
+                <label htmlFor="add-prize">Ajouter des prix</label>
                 <div className="add-prize">
                   <input
                     type="text"
-                    placeholder="Put prize name"
+                    placeholder="Mettre le nom du prix"
                     onChange={(e) => setPrizeName(e.target.value)}
                   />
                   <button
@@ -149,7 +149,11 @@ function CreateContest() {
                       prizeRequestGet();
                     }}
                   >
-                    {prizeAddLoading ? <Loader size="20" /> : "Add prize"}
+                    {prizeAddLoading ? (
+                      <Loader size="20" />
+                    ) : (
+                      "Ajouter des prix"
+                    )}
                   </button>
                 </div>
               </div>
@@ -177,13 +181,13 @@ function CreateContest() {
                 onChange={handleChange}
                 id="main-prize"
               >
-                <option value="null">Select main prize</option>
+                <option value="null">Sélectionnez le prix principal</option>
                 {prizeData?.results?.map((v) => (
                   <option value={v.id}>{v.name}</option>
                 ))}
               </select>
               <button type="button" onClick={handleSubmit}>
-                {contestAddLoading ? <Loader size="20" /> : " Create contest"}
+                {contestAddLoading ? <Loader size="20" /> : "Créer un concours"}
               </button>
             </div>
           </div>

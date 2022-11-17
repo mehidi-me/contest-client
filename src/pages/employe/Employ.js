@@ -26,20 +26,20 @@ function Employ() {
         <section className="sp" style={{ paddingBottom: 0 }}>
           <div className="container">
             <div className="admin admin-login">
-              <h1>Check ticket</h1>
+              <h1>Vérifier le billet</h1>
               <form action="#">
                 <input
                   type="number"
                   onChange={(e) => setData({ ...data, cid: e.target.value })}
-                  placeholder="Ticket number"
+                  placeholder="Code promo"
                 />
                 <input
                   type="numer"
                   onChange={(e) => setData({ ...data, uid: e.target.value })}
-                  placeholder="User ID"
+                  placeholder="Identifiant d'utilisateur"
                 />
                 <button onClick={() => getJoin(data)}>
-                  {joinLoading ? <Loader size={20} /> : "Test"}
+                  {joinLoading ? <Loader size={20} /> : "Vérifier"}
                 </button>
               </form>
             </div>
@@ -49,20 +49,20 @@ function Employ() {
           <section className="sp">
             <div className="container">
               <div className="admin full-width contest-draw-winner">
-                <h1>Ticket details</h1>
+                <h1>Détails du billet</h1>
                 <br />
                 <br />
                 <div className="table">
                   <table id="winner-details">
                     <tbody>
                       <tr>
-                        <th>User Name</th>
+                        <th>Nom d'utilisateur</th>
                         <th>Email</th>
-                        <th>User ID</th>
-                        <th>Cuppon code</th>
-                        <th>Ticket ID</th>
-                        <th>Prize name</th>
-                        <th>Status</th>
+                        <th>E-mail</th>
+                        <th>Code promoe</th>
+                        {/* <th>Ticket ID</th> */}
+                        <th>Nom du prix</th>
+                        <th>Statut</th>
                       </tr>
                       {/* <tr>
                         <td>Mehidi Hasan</td>
@@ -97,7 +97,7 @@ function Employ() {
                               {ujoinLoading ? (
                                 <Loader size="20" />
                               ) : (
-                                "Send gift"
+                                "Envoyer un cadeau"
                               )}
                             </button>
                           </td>

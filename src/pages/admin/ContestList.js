@@ -36,17 +36,17 @@ function ContestList() {
         <section className="sp">
           <div className="container">
             <div className="admin full-width contest-list">
-              <h1>Contest list</h1>
+              <h1>Liste des concours</h1>
               <br />
               <div className="table">
                 <table>
                   <tbody>
                     <tr>
-                      <th>Contest name</th>
-                      <th>Contest Start</th>
-                      <th>Contest End</th>
-                      <th>Contest Winning Prize</th>
-                      <th>View</th>
+                      <th>Nom du concours</th>
+                      <th>Début du concours</th>
+                      <th>Fin du concours</th>
+                      <th>Prix gagnant du concours</th>
+                      <th>Voir</th>
                     </tr>
                     {contestData?.contests?.results.map((v) => (
                       <tr>
@@ -67,7 +67,7 @@ function ContestList() {
                               navigate("/admin/panel/contest/" + v.id)
                             }
                           >
-                            View Contest
+                            Voir le concours
                           </button>
 
                           {compareDate(v.end_date) ? (
@@ -80,7 +80,7 @@ function ContestList() {
                                 padding: "2px 0",
                               }}
                             >
-                              runing
+                              courir
                             </p>
                           ) : null}
                         </td>
@@ -97,7 +97,7 @@ function ContestList() {
                   type="button"
                   onClick={() => navigate("/admin/panel/contest-create")}
                 >
-                  Create new contest
+                  Créer un nouveau concours
                 </button>
               </center>
             </div>

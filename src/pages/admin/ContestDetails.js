@@ -167,14 +167,14 @@ function ContestDetails() {
           <section className="sp" style={{ paddingBottom: 0 }}>
             <div className="container">
               <div className="admin contest-draw">
-                <h1>Draw the contest and choose the winner</h1>
+                <h1>Dessinez le concours et choisissez le gagnant</h1>
                 <br />
                 <br />
                 <button type="button" onClick={drawWiner}>
                   {contestUpdateLoading ? (
                     <Loader />
                   ) : (
-                    "Click to draw the winner!"
+                    "Cliquez pour tirer le gagnant !"
                   )}
                 </button>
               </div>
@@ -187,25 +187,27 @@ function ContestDetails() {
           <section className="sp" style={{ paddingBottom: 0 }}>
             <div className="container">
               <div className="admin full-width contest-draw-winner">
-                <h1>Here is the lucky winner. Please confirm the winner!</h1>
+                <h1>
+                  Voici l'heureux gagnant. Veuillez confirmer le gagnant !
+                </h1>
                 <br />
                 <br />
                 <div className="table">
                   <table id="winner-details">
                     <tbody>
                       <tr>
-                        <th>User Name</th>
-                        <th>Email</th>
-                        <th>User ID</th>
-                        <th>Cuppon code</th>
-                        <th>Ticket ID</th>
+                        <th>Nom d'utilisateur</th>
+                        <th>E-mail</th>
+                        <th>Identifiant d'utilisateur</th>
+                        <th>Code promo</th>
+                        {/* <th>Ticket ID</th> */}
                       </tr>
                       <tr>
                         <td>{winerDetails.name}</td>
                         <td>{winerDetails.email}</td>
                         <td>{winerDetails.user_id}</td>
                         <td>{winerDetails.code}</td>
-                        <td>{winerDetails.ticket_id}</td>
+                        {/* <td>{winerDetails.ticket_id}</td> */}
                       </tr>
                     </tbody>
                   </table>
@@ -223,14 +225,14 @@ function ContestDetails() {
                 onClick={() => navigate("/admin/panel/contest-list")}
                 style={{ width: "56px", padding: "7px" }}
               >
-                Back
+                Retour
               </button>
               <div className="tabs">
                 <div
                   onClick={() => setActiveTable("pending")}
                   className={activeTable == "pending" ? "tab active" : "tab"}
                 >
-                  All Coupon
+                  Tous les coupons
                 </div>
                 <div
                   onClick={() => setActiveTable("perticipents")}
@@ -238,13 +240,13 @@ function ContestDetails() {
                     activeTable == "perticipents" ? "tab active" : "tab"
                   }
                 >
-                  Contest perticipents
+                  Participants au concours
                 </div>
                 <div
                   onClick={() => setActiveTable("email")}
                   className={activeTable == "email" ? "tab active" : "tab"}
                 >
-                  Perticipents Email
+                  E-mail des participants
                 </div>
               </div>
               {joinLoading || joinUpdateLoading || joinDeleteLoading ? (
@@ -282,8 +284,8 @@ function ContestDetails() {
                   <table id="pending-approval">
                     <tbody>
                       <tr>
-                        <th>Cuppon code</th>
-                        <th>Used</th>
+                        <th>Code promo</th>
+                        <th>Utilisée</th>
                         {/* <th>Ticket ID</th>
                         <th>Approval</th> */}
                       </tr>
@@ -294,8 +296,8 @@ function ContestDetails() {
                               <td>{v}</td>
                               <td>
                                 {joinAllData?.joins.find((d) => d.code == v)
-                                  ? "Yes"
-                                  : "No"}
+                                  ? "Oui"
+                                  : "Non"}
                               </td>
                               {/* <td>{v.code}</td>
                               <td>{v.ticket_id}</td>
@@ -362,7 +364,7 @@ function ContestDetails() {
                       style={{ margin: 0 }}
                       name="search"
                       type="search"
-                      placeholder="Search"
+                      placeholder="Chercher"
                       onChange={(e) => {
                         if (!e.target.value)
                           return setPerticipentList(joinAllData?.joins);
@@ -378,11 +380,11 @@ function ContestDetails() {
                   <table id="approved-list">
                     <tbody>
                       <tr>
-                        <th>User ID</th>
-                        <th>Cuppon code</th>
+                        <th>Identifiant d'utilisateur</th>
+                        <th>Code promo</th>
                         {/* <th>Ticket ID</th> */}
-                        <th>Approval</th>
-                        <th>Pirticipent bonus gift</th>
+                        <th>Approbation</th>
+                        <th>Cadeau bonus Pirticipent</th>
                       </tr>
                       {perticipentList?.map((v) => {
                         if (
@@ -394,7 +396,7 @@ function ContestDetails() {
                               <td>{v.user_id}</td>
                               <td>{v.code}</td>
                               {/* <td>{v.ticket_id}</td> */}
-                              <td>Approved</td>
+                              <td>Approuvée</td>
                               <td>{v.prize_id}</td>
                             </tr>
                           );
@@ -433,9 +435,9 @@ function ContestDetails() {
                   <table id="email-list">
                     <tbody>
                       <tr>
-                        <th>User Name</th>
-                        <th>User ID</th>
-                        <th>Email</th>
+                        <th>Nom d'utilisateur</th>
+                        <th>Identifiant d'utilisateur</th>
+                        <th>E-mail</th>
                       </tr>
                       {emailList?.map((v) => (
                         <tr>

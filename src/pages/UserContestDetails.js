@@ -53,7 +53,7 @@ function UserContestDetails() {
 
               {!compareDate(contestData?.end_date) && winerDetails != null ? (
                 <h1>
-                  Contest end! <br /> The winner is{" "}
+                  Fin du concours ! <br /> Le gagnant est{" "}
                   <span>{winerDetails.name}</span>,{" "}
                   <span>{winerDetails.user_id}</span>
                 </h1>
