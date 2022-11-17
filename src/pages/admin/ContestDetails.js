@@ -121,7 +121,7 @@ function ContestDetails() {
       let pendingper = joinAllData?.joins?.filter((v) => v.status == "pending");
       setEmailList(joinAllData?.users);
       setPerticipentList(perticipents);
-      setPendingList(pendingper);
+      setPendingList(JSON.parse(joinAllData?.contest?.code_list));
 
       function getOccurrence(array, value) {
         var count = 0;
@@ -230,7 +230,7 @@ function ContestDetails() {
                   onClick={() => setActiveTable("pending")}
                   className={activeTable == "pending" ? "tab active" : "tab"}
                 >
-                  Pending approval
+                  All Coupon
                 </div>
                 <div
                   onClick={() => setActiveTable("perticipents")}
@@ -267,10 +267,12 @@ function ContestDetails() {
                       placeholder="Search"
                       onChange={(e) => {
                         if (!e.target.value)
-                          return setPerticipentList(joinAllData?.joins);
-                        setPerticipentList((v) =>
-                          joinAllData?.joins?.filter((d) =>
-                            Object.values(d).includes(e.target.value)
+                          return setPendingList(
+                            JSON.parse(joinAllData?.contest?.code_list)
+                          );
+                        setPendingList((v) =>
+                          JSON.parse(joinAllData?.contest?.code_list)?.filter(
+                            (d) => d == e.target.value
                           )
                         );
                       }}
@@ -280,17 +282,22 @@ function ContestDetails() {
                   <table id="pending-approval">
                     <tbody>
                       <tr>
-                        <th>User ID</th>
                         <th>Cuppon code</th>
-                        <th>Ticket ID</th>
-                        <th>Approval</th>
+                        <th>Used</th>
+                        {/* <th>Ticket ID</th>
+                        <th>Approval</th> */}
                       </tr>
                       {pendingList?.map((v) => {
-                        if (v.status == "pending") {
+                        if (true) {
                           return (
                             <tr>
-                              <td>{v.user_id}</td>
-                              <td>{v.code}</td>
+                              <td>{v}</td>
+                              <td>
+                                {joinAllData?.joins.find((d) => d.code == v)
+                                  ? "Yes"
+                                  : "No"}
+                              </td>
+                              {/* <td>{v.code}</td>
                               <td>{v.ticket_id}</td>
                               <td>
                                 <div className="approval-buttons">
@@ -307,7 +314,7 @@ function ContestDetails() {
                                     <i className="uil uil-times" />
                                   </button>
                                 </div>
-                              </td>
+                              </td> */}
                             </tr>
                           );
                         }
@@ -373,17 +380,20 @@ function ContestDetails() {
                       <tr>
                         <th>User ID</th>
                         <th>Cuppon code</th>
-                        <th>Ticket ID</th>
+                        {/* <th>Ticket ID</th> */}
                         <th>Approval</th>
                         <th>Pirticipent bonus gift</th>
                       </tr>
                       {perticipentList?.map((v) => {
-                        if (v.status == "approved") {
+                        if (
+                          v.status == "approved" &&
+                          joinAllData?.joins.find((d) => d.code == v.code)
+                        ) {
                           return (
                             <tr>
                               <td>{v.user_id}</td>
                               <td>{v.code}</td>
-                              <td>{v.ticket_id}</td>
+                              {/* <td>{v.ticket_id}</td> */}
                               <td>Approved</td>
                               <td>{v.prize_id}</td>
                             </tr>
